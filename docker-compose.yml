@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # PHP-FPM Service
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: promoblix_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - promoblix
+    depends_on:
+      - mysql
+      - redis
+
+  # Nginx Service
+  nginx:
+    image: nginx:alpine
+    container_name: promoblix_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d
+    networks:
+      - promoblix
+    depends_on:
+      - app
+
+  # MySQL Service
+  mysql:
+    image: mysql:8.0
+    container_name: promoblix_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-promoblix}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_USER: ${DB_USERNAME:-promoblix}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+    networks:
+      - promoblix
+
+  # Redis Service
+  redis:
+    image: redis:alpine
+    container_name: promoblix_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - promoblix
+
+  # Node.js for Vite
+  node:
+    image: node:20-alpine
+    container_name: promoblix_node
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - promoblix
+    tty: true
+
+# Networks
+networks:
+  promoblix:
+    driver: bridge
