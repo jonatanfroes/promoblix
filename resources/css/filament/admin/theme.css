@@ -1,0 +1,108 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom PromoBlix Theme - Clean & Minimalist */
+
+/* Enhanced cards with soft shadows */
+.fi-section,
+.fi-card {
+    @apply shadow-sm rounded-2xl bg-white;
+}
+
+.fi-card:hover {
+    @apply shadow-md transition-shadow duration-300;
+}
+
+/* Sidebar styling */
+.fi-sidebar {
+    @apply bg-gray-50 border-r border-gray-100;
+}
+
+.fi-sidebar-item-button {
+    @apply rounded-xl transition-all duration-200;
+}
+
+.fi-sidebar-item-button:hover {
+    @apply bg-white shadow-sm;
+}
+
+/* Form inputs - rounded and clean */
+.fi-input,
+.fi-select,
+.fi-textarea {
+    @apply rounded-lg border-gray-200 focus:border-primary-400 focus:ring-primary-400/20;
+}
+
+/* Buttons - soft rounded */
+.fi-btn {
+    @apply rounded-lg font-medium transition-all duration-200;
+}
+
+.fi-btn-primary {
+    @apply shadow-sm hover:shadow-md;
+}
+
+/* Tables - clean rows */
+.fi-ta-table {
+    @apply rounded-xl overflow-hidden;
+}
+
+.fi-ta-row {
+    @apply transition-colors duration-200;
+}
+
+.fi-ta-row:hover {
+    @apply bg-gray-50;
+}
+
+/* Stats/Widgets - modern cards */
+.fi-wi-stats-card {
+    @apply rounded-2xl shadow-sm bg-gradient-to-br from-white to-gray-50;
+    @apply border border-gray-100;
+}
+
+.fi-wi-stats-card:hover {
+    @apply shadow-md;
+}
+
+/* Header */
+.fi-topbar {
+    @apply bg-white/80 backdrop-blur-lg border-b border-gray-100;
+}
+
+/* Modal */
+.fi-modal-window {
+    @apply rounded-2xl shadow-lg;
+}
+
+/* Notifications */
+.fi-no {
+    @apply rounded-xl shadow-md;
+}
+
+/* Typography improvements */
+.fi-header-heading {
+    @apply font-semibold tracking-tight;
+}
+
+.fi-section-header-heading {
+    @apply text-gray-900 font-semibold;
+}
+
+/* Spacing improvements */
+.fi-section-content {
+    @apply space-y-6;
+}
+
+/* Badge rounded */
+.fi-badge {
+    @apply rounded-full px-3 py-1;
+}
+
+/* Smooth transitions everywhere */
+* {
+    @apply transition-colors duration-150;
+}
